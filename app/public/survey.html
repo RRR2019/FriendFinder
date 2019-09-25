@@ -7,7 +7,7 @@
     <title>Friend Finder</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -30,6 +30,7 @@
                     <option value="4">4</option>
                     <option value="5">5 (Strongly Agree)</option>
             </select>
+            <h3>Question 2</h3>
             <h4>You often spend time exploring unrealistic yet intriguing ideas.</h4>
             <select class="chosen-select" id="q2">
                     <option value=""></option>
@@ -39,6 +40,7 @@
                     <option value="4">4</option>
                     <option value="5">5 (Strongly Agree)</option>
             </select>
+            <h3>Question 3</h3>
             <h4>You often think about what you should have said in a conversation long after it has taken place.</h4>
             <select class="chosen-select" id="q3">
                     <option value=""></option>
@@ -48,6 +50,7 @@
                     <option value="4">4</option>
                     <option value="5">5 (Strongly Agree)</option>
             </select>
+            <h3>Question 4</h3>
             <h4>You often rely on other people to be the ones to start a conversation and keep it going.</h4>
             <select class="chosen-select" id="q4">
                     <option value=""></option>
@@ -57,6 +60,7 @@
                     <option value="4">4</option>
                     <option value="5">5 (Strongly Agree)</option>
             </select>
+            <h3>Question 5</h3>
             <h4> You rarely worry if you made a good impression on someone you met.</h4>
             <select class="chosen-select" id="q5">
                     <option value=""></option>
@@ -66,6 +70,7 @@
                     <option value="4">4</option>
                     <option value="5">5 (Strongly Agree)</option>
             </select>
+            <h3>Question 6</h3>
             <h4>It would be a challenge for you to spend the whole weekend all by yourself without feeling bored.</h4>
             <select class="chosen-select" id="q6">
                     <option value=""></option>
@@ -75,6 +80,7 @@
                     <option value="4">4</option>
                     <option value="5">5 (Strongly Agree)</option>
             </select>
+            <h3>Question 7</h3>
             <h4>You are very affectionate with people you care about.</h4>
             <select class="chosen-select" id="q7">
                     <option value=""></option>
@@ -84,6 +90,7 @@
                     <option value="4">4</option>
                     <option value="5">5 (Strongly Agree)</option>
             </select>
+            <h3>Question 8</h3>
             <h4>You have a careful and methodical approach to life. </h4>
             <select class="chosen-select" id="q8">
                     <option value=""></option>
@@ -93,6 +100,7 @@
                     <option value="4">4</option>
                     <option value="5">5 (Strongly Agree)</option>
             </select>
+            <h3>Question 9</h3>
             <h4>You are still bothered by the mistakes you made a long time ago.</h4>
             <select class="chosen-select" id="q9">
                     <option value=""></option>
@@ -102,6 +110,7 @@
                     <option value="4">4</option>
                     <option value="5">5 (Strongly Agree)</option>
             </select>
+            <h3>Question 10</h3>
             <h4> You can stay calm under a lot of pressure. </h4>
             <select class="chosen-select" id="q10">
                     <option value=""></option>
@@ -119,10 +128,10 @@
                         <div class="modal-content">
                                 <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Modal Header</h4>
+                                        <h4 class="modal-title"></h4>
                                 </div>
                 <div class="modal-body">
-                        <p>Some text in the modal.</p>
+                        <p class ="modal-text"></p>
                 </div>
                 <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -142,3 +151,106 @@
     </footer>
 </body>
 </html>
+
+<script type="text/javascript">
+
+$("#submit").on("click", function(event) {
+    event.preventDefault();
+    let newName = $("#name").val();
+    let newPhoto = $("#photo").val();
+
+    var newFriend = {
+      name: newName,
+      photo: newPhoto,
+      scores: []
+      };
+
+        for(let i=1; i<11; i++){
+         const score = $(`#q${i}`).val();
+          const intScore = parseInt(score);
+          newFriend.scores.push(intScore);
+        }
+
+      console.log(newFriend);
+      
+        if(newName.length>0 && newPhoto.length>0){
+                postFriend(newFriend);
+                getFriend(newFriend.scores);
+                //$(".modal-title").html("Cool");
+                //$(".modal-text").html("Super Cool");   
+        }
+
+        else{
+                $(".modal-title").html("Important Message");
+                $(".modal-text").html("Please add your name and photo link");
+        }
+
+
+});       
+
+
+function postFriend(friend) {
+        $.post("/api/friends", friend,
+      function(data) {
+
+        // If a table is available... tell user they are booked.
+        if (data) {
+        console.log("updated API")     
+        }
+
+        // If a table is available... tell user they on the waiting list
+
+        // Clear the form when submitting
+        name="";
+        photo ="";
+        friend.scores=[];
+      });
+}
+
+function getFriend(scoresArray){
+        let results=[];
+
+        $.ajax({ url: "/api/friends", method: "GET" })
+      .then(function(friendData) {
+
+        // Here we then log the waitlistData to console, where it will show up as an object.
+        console.log(friendData);
+        console.log("------------------------------------");
+        let sums =[];
+        for (let i = 0; i < (friendData.length -1); i++) {
+               let friendScore =friendData[i].scores;
+
+               for(let j = 0; j < (scoresArray.length); j++){
+                      let diffArray=Math.abs(scoresArray[j] - friendScore[j]); 
+                      results.push(diffArray); 
+                      console.log(results);
+
+                       }
+
+                       for(let k=0; k<(results.length/10); k++){
+                                
+                                let newDiff = results.splice(0,10);
+                                console.log(newDiff)
+                                // function for adding two numbers
+                                const add = (a, b) => a + b
+                                // use reduce to sum our array
+                                let sum = newDiff.reduce(add);
+                                sums.push(sum);
+                                console.log(sums);
+                                
+                                if(sums.length ===(friendData.length -1)){
+                                        console.log(Math.min.apply(null, sums))
+                                        let friendIndex = sums.indexOf(Math.min.apply(null, sums));
+                                        console.log(friendIndex);
+                                        $(".modal-title").html(friendData[friendIndex].name);
+                                        $(".modal-text").html(friendData[friendIndex].photo);
+                                        
+                                }
+
+                        }              
+        }
+      });
+}
+
+
+</script>

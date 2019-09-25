@@ -1,0 +1,70 @@
+let friendsArray = [
+{  
+  name:"Link",
+  photo:"https://via.placeholder.com/300",
+  scores:[
+      5,
+      1,
+      4,
+      4,
+      5,
+      1,
+      2,
+      5,
+      4,
+      1
+    ]
+},
+{
+name:"Mario",
+  photo:"https://via.placeholder.com/300",
+  scores:[
+      3,
+      2,
+      1,
+      5,
+      1,
+      5,
+      2,
+      4,
+      4,
+      2
+    ]
+},
+{  
+  name:"Mr. Game & Watch",
+  photo:"https://via.placeholder.com/300",
+  scores:[
+      3,
+      2,
+      1,
+      1,
+      5,
+      2,
+      2,
+      4,
+      3,
+      1
+    ]
+},
+{  
+  name:"Peach",
+  photo:"https://via.placeholder.com/300",
+  scores:[
+      4,
+      5,
+      2,
+      3,
+      2,
+      5,
+      5,
+      2,
+      2,
+      4   
+    ]
+}
+
+]
+
+
+module.exports = friendsArray;
