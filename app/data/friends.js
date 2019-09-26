@@ -62,8 +62,71 @@ name:"Mario",
       2,
       4   
     ]
+},
+{  
+  name:"Rodrigo",
+  photo:"https://via.placeholder.com/300",
+  scores:[
+      2,
+      3,
+      2,
+      5,
+      5,
+      2,
+      4,
+      3,
+      4,
+      4   
+    ]
+},
+{  
+  name:"Laura",
+  photo:"https://via.placeholder.com/300",
+  scores:[
+      5,
+      2,
+      1,
+      1,
+      3,
+      4,
+      5,
+      2,
+      5,
+      4   
+    ]
+},
+{  
+  name:"Pikachu",
+  photo:"https://via.placeholder.com/300",
+  scores:[
+      1,
+      4,
+      2,
+      3,
+      4,
+      5,
+      1,
+      2,
+      2,
+      5   
+    ]
+},
+{  
+  name:"Paulette",
+  photo:"https://via.placeholder.com/300",
+  scores:[
+      2,
+      3,
+      5,
+      4,
+      2,
+      1,
+      5,
+      3,
+      5,
+      1   
+    ]
 }
-
 ]
 
 
